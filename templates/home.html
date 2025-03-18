@@ -1,0 +1,23 @@
+<!doctype html>
+
+{% extends "base.html" %}
+{%block title%} Home {%endblock%}
+
+{%block content%}
+{% if user.is_authenticated %}
+    {% if user.is_superuser%}
+        <h3> Welcome, Admin! </h3>
+    {% else %}
+        <h1> Welcome, {{ user.username }}! </h1>
+        <a href="{% url "dealer" %}"><button> Cars Inventory </button></a>
+    {% endif %}
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+{% else %} 
+    <h1> Welcome, Guest! </h1>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'signup' %}">Register</a>
+{% endif %}
+{%endblock%}       

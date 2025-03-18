@@ -1,0 +1,36 @@
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+</head> 
+<body>
+    <h1>Checkout</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for item in cart_items %}
+                <tr>
+                    <td>{{ item.car.make }} {{ item.car.model }}</td>
+                    <td>{{ item.car.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.car.price|multiply:item.quantity }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Total: $ {{ total }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confrim Oder</button>
+    </form>
+</body>
+</html>

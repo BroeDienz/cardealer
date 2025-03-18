@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}edit Car{% endblock %}</title>
+    </head>
+    <body>
+        <h1>Edit Car</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="register">Register:</label>
+            <input type="text" name="register" id="register" value="{{ car.register }}"required><br>
+            <label for="year">Year:</label>
+            <input type="number" name="year" id="year" value="{{ car.year }}" required><br>
+            <label for="make">Make:</label>
+            <input type="text" name="make" id="make" value="{{ car.make }}" required><br>
+            <label for="model">Model:</label>
+            <input type="text" name="model" id="model" value="{{ car.model }}" required><br>
+            <label for="price">Price:</label>
+            <input type="number" name="price" id="price" value="{{ car.price }}" required><br>
+            <label for="vin">VIN:</label>
+            <input type="text" name="vin" id="vin" value="{{ car.vin }}" required><br>
+            <label for="quantity">Car Stock:</label>
+            <input type="number" name="quantity" id="quantity" value="{{ car.quantity }}" required><br>
+            <button type="submit">save edit</button>
+        </form>
+        <p> </p>
+        <form action="{% url "dealer" %}" method="get">
+            <button type="submit">Cancel</button>
+        </form>
+    </body>
+</html>
+<!-- Compare this snippet from templates/registration/signup.html: -->
+<!-- <!doctype html> -->    
