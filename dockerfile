@@ -1,18 +1,11 @@
 FROM  python:3.12.0-slim-bookworm
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
+COPY --from=ghcr.io/astral-sh/uv:0.4.30 /uv /uvx /bin/
 WORKDIR /app
-
-COPY source dest pyproject.toml /app/
-
-RUN pip install --upgrade pip \
-    && pip install poetry \
-    && poetry config virtualenvs.create false \
-    && poetry install --no-dev
-
-COPY . /app/
+RUN --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --frozen --group remote --no-install-project
+COPY . .
 
 EXPOSE 8000
 
