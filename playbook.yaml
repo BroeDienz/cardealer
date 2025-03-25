@@ -1,0 +1,16 @@
+---
+- name : upadate EC2 instance   
+  hosts: all
+  become: true # run task with sudo pr
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+    
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+        update_cache: yes
+        autoremove: yes
+        autoclean: yes
+      
