@@ -1,6 +1,6 @@
 ---
 - name: Deploy the aplication
-  hostss: aws
+  hosts: aws
   become: true
   tasks:
     # Clone the repository
@@ -12,14 +12,16 @@
     
     # Change directory to the cloned repository
     - name: Change directory to app folder
-      command: chdir=/home/ubuntu/app/cardealer pwd
+      command: chdir=/home/ubuntu/app pwd
     
     # Build the Docker image
     - name: Build the Docker image
-      command: DOCKER_BUILDKIT=1 docker build -t cardealer:latest .
+      command: sudo DOCKER_BUILDKIT=1 docker build -t cardealer:latest .
+      args:
+        chdir: /home/ubuntu/app
 
     # run Docker Compose
     - name: Run Docker Compose
-      shell: docker-compose up -d
+      shell: sudo docker-compose up -d
       args:
-        chdir: /home/ubuntu/app/cardealer
+        chdir: /home/ubuntu/app
