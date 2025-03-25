@@ -1,0 +1,25 @@
+---
+- name: Deploy the aplication
+  hostss: aws
+  become: true
+  tasks:
+    # Clone the repository
+    - name: clone the repository
+      git:
+        repo: https://github.com/BroeDienz/cardealer.git
+        dest: /home/ubuntu/app
+        update: yes
+    
+    # Change directory to the cloned repository
+    - name: Change directory to app folder
+      command: chdir=/home/ubuntu/app/cardealer pwd
+    
+    # Build the Docker image
+    - name: Build the Docker image
+      command: DOCKER_BUILDKIT=1 docker build -t cardealer:latest .
+
+    # run Docker Compose
+    - name: Run Docker Compose
+      shell: docker-compose up -d
+      args:
+        chdir: /home/ubuntu/app/cardealer

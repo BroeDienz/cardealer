@@ -1,16 +1,43 @@
 ---
 - name : upadate EC2 instance   
-  hosts: all
+  hosts: aws
   become: true # run task with sudo pr
   tasks:
+    # Update the system
     - name: Update apt package cache
       apt:
         update_cache: yes
     
+    # Upgrade the system
     - name: Upgrade all packages
       apt:
         upgrade: dist
         update_cache: yes
         autoremove: yes
         autoclean: yes
-      
+    
+    # install Docker
+    - name: install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    # install dependencies for Docker Compose
+    - name : install dependencies for Docker Compose
+      apt:
+        name: 
+        - curl
+        - python3-pip
+        state: present
+
+    # install Docker Compose
+    - name: install Docker Compose
+      apt:
+        name: docker-compose
+    
+    # ensure Docker service is running
+    - name: Start and enable the Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
