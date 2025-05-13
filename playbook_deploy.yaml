@@ -14,14 +14,31 @@
     - name: Change directory to app folder
       command: chdir=/home/ubuntu/app pwd
     
-    # Build the Docker image
-    - name: Build the Docker image
-      command: sudo DOCKER_BUILDKIT=1 docker build -t cardealer:latest .
+
+    # install Docker Compose plugin
+    - name: Install Docker Compose
+      shell: |
+        mkdir -p /usr/libexec/docker/cli-plugins
+        curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o /usr/libexec/docker/cli-plugins/docker-compose
+        chmod +x /usr/libexec/docker/cli-plugins/docker-compose
+      args:
+        creates: /usr/libexec/docker/cli-plugins/docker-compose
+
+    #deploy cardealer using docker compose
+    - name: Deploy cardealer using docker compose
+      community.docker.docker_compose_v2:
+        project_src: /home/ubuntu/app
+        state: present
+        recreate: auto
+
+     # Stop and remove existing containers
+    - name: Stop and remove existing containers
+      shell: docker-compose down
       args:
         chdir: /home/ubuntu/app
-
+                
     # run Docker Compose
     - name: Run Docker Compose
-      shell: sudo docker-compose up -d
+      shell: docker-compose up -d
       args:
         chdir: /home/ubuntu/app
