@@ -1,39 +1,52 @@
+{% extends "base.html" %}
 {% load custom_filters %}
+{% block title %}Your Cart | CarDealer{% endblock %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>View Cart</title>    
-</head>
-<body>
-    <h1>Your Cart</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for item in cart_items %}
-                <tr>
-                    <td>{{ item.car.make }} {{ item.car.model }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.car.price }}</td>
-                    <td>{{ item.car.price|multiply:item.quantity }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h2>Total: ${{ total }}</h2>    
-    {% comment %} <a href="{% url "checkout" %}">Proceed to Checkout</a> {% endcomment %}
-    <form action="{% url "checkout" %}" method="get">
-        <button type="submit">Proceed to Checkout</button>
-    </form>
-    <form action="{% url "dealer" %}" method="get">
-        <button type="submit">Continue Shopping</button>
-    </form>
-</body>
-</html>
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Your Cart</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                    <tr>
+                                        <td>{{ item.car.make }} {{ item.car.model }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>${{ item.car.price }}</td>
+                                        <td>${{ item.car.price|multiply:item.quantity }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="4" class="text-center">Your cart is empty.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4 class="text-end mt-4">Total: <span class="text-primary">${{ total }}</span></h4>
+                    <div class="d-flex justify-content-between mt-4">
+                        <form action="{% url 'checkout' %}" method="get" class="d-inline">
+                            <button type="submit" class="btn btn-success">Proceed to Checkout</button>
+                        </form>
+                        <form action="{% url 'dealer' %}" method="get" class="d-inline">
+                            <button type="submit" class="btn btn-secondary">Continue Shopping</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

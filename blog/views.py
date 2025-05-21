@@ -1,8 +1,9 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test, login_required
-from .models import Car, Cart, CartItem
+from .models import Car, Cart, CartItem, CarSerializer
 from django.contrib.auth import logout
+from rest_framework import viewsets
 
 # Create your views here.
 def car_inventory(request):
@@ -97,3 +98,7 @@ def checkout(request):
 
 def checkout_complete(request):
    return render(request, 'checkout_complete.html')
+
+class CarViewSet(viewsets.ModelViewSet):
+    queryset = Car.objects.all()
+    serializer_class = CarSerializer

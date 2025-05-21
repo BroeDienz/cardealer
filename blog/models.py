@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from rest_framework import serializers
 
 # Create your models here.
 class Car(models.Model):
@@ -21,5 +22,9 @@ class CartItem(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-   
+
+class CarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Car
+        fields = ["model", "year", "price"]   
     

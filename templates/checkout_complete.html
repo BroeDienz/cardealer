@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Checkout Success</title>
-</head>
-<body>
-    <h1>Checkout Complete</h1>
-    <p>Your order has been placed complete.</p>
-    <a href="{% url 'dealer' %}">Back to Car Inventory</a>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Checkout Complete | CarDealer{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body text">
+                    <h2 class="card-title text-center mb-4">Checkout Complete</h2>
+                    <p class="text-center">Thank you for your order!</p>
+                    <p class="text-center">Your order number is: <strong>{{ order_number }}</strong></p>
+                    <p class="text-center">You will receive a confirmation email shortly.</p>
+                    <div class="text-center mt-4">
+                        <a href="{% url 'dealer' %}" class="btn btn-primary">Continue Shopping</a>
+                        <a href="{% url 'view_cart' %}" class="btn btn-secondary">View Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}                                                                  

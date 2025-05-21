@@ -7,5 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "ansible>=11.3.0",
     "django>=5.1.6",
+    "djangorestframework>=3.16.0",
+    "markdown>=3.8",
     "psycopg2-binary>=2.9.10",
 ]

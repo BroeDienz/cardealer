@@ -1,36 +1,45 @@
+{% extends "base.html" %}
 {% load custom_filters %}
+{% block title %}Checkout | CarDealer{% endblock %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Checkout</title>
-</head> 
-<body>
-    <h1>Checkout</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            {%for item in cart_items %}
-                <tr>
-                    <td>{{ item.car.make }} {{ item.car.model }}</td>
-                    <td>{{ item.car.price }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.car.price|multiply:item.quantity }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <h2>Total: $ {{ total }}</h2>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Confrim Oder</button>
-    </form>
-</body>
-</html>
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Checkout</h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                    <tr>
+                                        <td>{{ item.car.make }} {{ item.car.model }}</td>
+                                        <td>${{ item.car.price }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>${{ item.car.price|multiply:item.quantity }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <h4 class="text-end mt-4">Total: <span class="text-primary">${{ total }}</span></h4>
+                    <form method="post" class="mt-4 text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Confirm Order</button>
+                        <a href="{% url 'view_cart' %}" class="btn btn-secondary ms-2">Back to Cart</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

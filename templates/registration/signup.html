@@ -1,25 +1,48 @@
 <!doctype html>
 {% extends "base.html" %}
 
-{% block title %} Sign Up {% endblock %}
+{% block title %}Sign Up | CarDealer{% endblock %}
 
 {% block content %}
-<h1>Sign Up</h1>
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required><br>
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" required><br>
-    <label for="password1">Password:</label>
-    <input type="password" name="password1" id="password1" required><br>
-    <label for="password2">Confirm Password:</label>
-    <input type="password" name="password2" id="password2" required><br>
-    <button type="submit">Sign Up</button>
-</form>
-<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
-<form action="{%url 'back_to_home'%}" method="post">
-    {% csrf_token %}
-    <button type="submit">Cancel Sign Up</button>
-</form>
-{% endblock %}
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Create Your Account</h2>
+                <form method="post" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" name="username" id="username" class="form-control" required autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password1" class="form-label">Password</label>
+                        <input type="password" name="password1" id="password1" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password2" class="form-label">Confirm Password</label>
+                        <input type="password" name="password2" id="password2" class="form-control" required>
+                    </div>
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endif %}
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">Sign Up</button>
+                        <a href="/" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+                <div class="mt-3 text-center">
+                    <span>Already have an account?</span>
+                    <a href="{% url 'login' %}">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}</div></div>
+

@@ -1,33 +1,51 @@
-<!doctype html>
-<html>
-    <head>
-        <title>{% block title %}edit Car{% endblock %}</title>
-    </head>
-    <body>
-        <h1>Edit Car</h1>
-        <form method="post">
-            {% csrf_token %}
-            <label for="register">Register:</label>
-            <input type="text" name="register" id="register" value="{{ car.register }}"required><br>
-            <label for="year">Year:</label>
-            <input type="number" name="year" id="year" value="{{ car.year }}" required><br>
-            <label for="make">Make:</label>
-            <input type="text" name="make" id="make" value="{{ car.make }}" required><br>
-            <label for="model">Model:</label>
-            <input type="text" name="model" id="model" value="{{ car.model }}" required><br>
-            <label for="price">Price:</label>
-            <input type="number" name="price" id="price" value="{{ car.price }}" required><br>
-            <label for="vin">VIN:</label>
-            <input type="text" name="vin" id="vin" value="{{ car.vin }}" required><br>
-            <label for="quantity">Car Stock:</label>
-            <input type="number" name="quantity" id="quantity" value="{{ car.quantity }}" required><br>
-            <button type="submit">save edit</button>
-        </form>
-        <p> </p>
-        <form action="{% url "dealer" %}" method="get">
-            <button type="submit">Cancel</button>
-        </form>
-    </body>
-</html>
-<!-- Compare this snippet from templates/registration/signup.html: -->
-<!-- <!doctype html> -->    
+{% extends "base.html" %}
+{% block title %}Edit Car | CarDealer{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Edit Car</h2>
+                    <form method="post" autocomplete="off">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="register" class="form-label">Register</label>
+                            <input type="text" name="register" id="register" class="form-control" value="{{ car.register }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="year" class="form-label">Year</label>
+                            <input type="number" name="year" id="year" class="form-control" value="{{ car.year }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="make" class="form-label">Make</label>
+                            <input type="text" name="make" id="make" class="form-control" value="{{ car.make }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="model" class="form-label">Model</label>
+                            <input type="text" name="model" id="model" class="form-control" value="{{ car.model }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" name="price" id="price" class="form-control" value="{{ car.price }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="vin" class="form-label">VIN</label>
+                            <input type="text" name="vin" id="vin" class="form-control" value="{{ car.vin }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Car Stock</label>
+                            <input type="number" name="quantity" id="quantity" class="form-control" value="{{ car.quantity }}" required>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Save Edit</button>
+                            <a href="{% url 'dealer' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

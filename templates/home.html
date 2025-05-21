@@ -1,23 +1,29 @@
 <!doctype html>
 
 {% extends "base.html" %}
-{%block title%} Home {%endblock%}
+{% block title %}Home | CarDealer{% endblock %}
 
-{%block content%}
-{% if user.is_authenticated %}
-    {% if user.is_superuser%}
-        <h3> Welcome, Admin! </h3>
-    {% else %}
-        <h1> Welcome, {{ user.username }}! </h1>
-        <a href="{% url "dealer" %}"><button> Cars Inventory </button></a>
-    {% endif %}
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-{% else %} 
-    <h1> Welcome, Guest! </h1>
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'signup' %}">Register</a>
-{% endif %}
-{%endblock%}       
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <h3 class="mb-4">Welcome, <span class="text-primary">Admin</span>!</h3>
+                {% else %}
+                    <h1 class="mb-4">Welcome, <span class="text-success">{{ user.username }}</span>!</h1>
+                    <a href="{% url 'dealer' %}" class="btn btn-outline-primary mb-3">Cars Inventory</a>
+                {% endif %}
+                <form action="{% url 'logout' %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+            {% else %}
+                <h1 class="mb-4">Welcome, <span class="text-secondary">Guest</span>!</h1>
+                <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
+                <a href="{% url 'signup' %}" class="btn btn-outline-secondary">Register</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
