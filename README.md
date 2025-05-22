@@ -1,51 +1,44 @@
-# Car Dealer Project
+# CarDealer Project
 
-This project is designed to manage and visualize car dealership data. Below is an overview of the tools and technologies used in this project.
+A Django-based web application for managing and visualizing car dealership data, with support for API load testing using Locust.
 
-## Tools and Technologies
+---
 
-### 1. **uv Python Package**
-    - The `uv` Python package is utilized for various functionalities within the project. It helps streamline development and manage project dependencies. Follow or click link to install uv
-    https://docs.astral.sh/uv/getting-started/installation/
+## 🚀 Quick Start Guide
 
-### 2. **Project Manager**
-    - A project management tool is used to organize and maintain the structure of the project, ensuring smooth development workflows.
+Follow these steps to get the project running on your local machine.
 
-### 3. **Docker**
-    - Docker is used to containerize the application, making it easy to build, ship, and run the project in any environment.
-    - Docker images are created to encapsulate the application and its dependencies.
+---
 
-### 4. **PostgreSQL**
-    - PostgreSQL is the database management system used in this project to store and manage data efficiently.
+### 1. **Clone the Repository**
 
-### 5. **DataGrip**
-    - DataGrip is employed to visualize and interact with the PostgreSQL database, providing an intuitive interface for database management.
+```bash
+git clone https://github.com/your-username/cardealer.git
+cd cardealer
+```
 
-## Getting Started
+---
 
-### Prerequisites
-- Install Docker: [Docker Installation Guide](https://docs.docker.com/get-docker/)
-- Install Python and required dependencies (e.g., `uv` package).
-- Set up PostgreSQL and configure the database.
+### 2. **Install Prerequisites**
 
-### Installation
-1. Clone the repository:
-    ```bash
-    git clone <repository-url>
-    cd cardealer
-    ```
-2. Build the Docker image:
-    ```bash
-    docker build -t cardealer-app .
-    ```
-3. Run the Docker container:
-    ```bash
-    docker run -p 8000:8000 cardealer-app
-    ```
+- **Python 3.10+**  
+  [Download Python](https://www.python.org/downloads/)
+- **Docker**  
+  [Install Docker](https://docs.docker.com/get-docker/)
+- **uv (Python package manager)**  
+  [uv Installation Guide](https://docs.astral.sh/uv/getting-started/installation/)
+- **PostgreSQL**  
+  [Install PostgreSQL](https://www.postgresql.org/download/)
+- **Locust** (for load testing)  
+  Will be installed in a later step.
 
-### Database Setup
-- Ensure PostgreSQL is running and properly configured.
-- Update the DATABASES setting in core/settings.py to match your PostgreSQL configuration:
+---
+
+### 3. **Configure the Database**
+
+- Make sure PostgreSQL is running and a database named `cardealer` exists.
+- Update your database settings in `core/settings.py` if needed:
+
     ```python
     DATABASES = {
         'default': {
@@ -59,23 +52,109 @@ This project is designed to manage and visualize car dealership data. Below is a
     }
     ```
 
-- Use DataGrip or any other database tool to visualize and manage the database.
+---
 
-## Usage
-- Start the application using Docker.
-- Access the application via the specified port (e.g., `http://localhost:8000`).
-- Use DataGrip to interact with the PostgreSQL database.
+### 4. **Install Python Dependencies**
 
-## Contributing
-Contributions are welcome! Please follow the standard Git workflow:
+```bash
+uv pip install -r requirements.txt
+```
+
+---
+
+### 5. **Apply Migrations**
+
+```bash
+python manage.py migrate
+```
+
+---
+
+### 6. **Create a Superuser (Admin)**
+
+```bash
+python manage.py createsuperuser
+```
+
+---
+
+### 7. **Load Dummy Data (Optional)**
+
+If you want to load sample car data:
+
+```bash
+python manage.py dummycar
+```
+
+---
+
+### 8. **Run the Development Server**
+
+```bash
+python manage.py runserver
+```
+
+- Open your browser and go to: [http://localhost:8000](http://localhost:8000)
+- Admin panel: [http://localhost:8000/admin](http://localhost:8000/admin)
+
+---
+
+### 9. **Run with Docker (Alternative)**
+
+If you prefer Docker:
+
+```bash
+docker build -t cardealer-app .
+docker run -p 8000:8000 cardealer-app
+```
+
+---
+
+### 10. **Load Testing with Locust**
+
+#### a. **Install Locust**
+
+```bash
+uv pip install locust
+```
+
+#### b. **Create/Edit your Locust test file**
+
+Make sure you have a `locustfile.py` in your project root or use the provided one.
+
+#### c. **Run Locust**
+
+```bash
+locust
+```
+
+- Open your browser and go to [http://localhost:8089](http://localhost:8089)
+- Enter the host as `http://localhost:8000` and start your load test.
+
+---
+
+### 11. **Database Visualization (Optional)**
+
+- Use [DataGrip](https://www.jetbrains.com/datagrip/) or any other database tool to connect to your PostgreSQL database for visualization and management.
+
+---
+
+## 🛠️ Contributing
+
 1. Fork the repository.
 2. Create a feature branch.
 3. Commit your changes.
 4. Submit a pull request.
 
-## License
+---
+
+## 📄 License
+
 This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-## Acknowledgments
-- Thanks to the developers of `uv`, Docker, PostgreSQL, and DataGrip for their amazing tools.
+---
+
+## 🙏 Acknowledgments
+
+- Thanks to the developers of `uv`, Docker, PostgreSQL, Locust, and DataGrip.
 - Special thanks to the open-source community for their contributions.
