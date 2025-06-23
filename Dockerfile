@@ -1,10 +1,18 @@
-FROM  python:3.12.0-slim-bookworm
+FROM  python:3.12.3-slim-bookworm
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
 
 COPY --from=ghcr.io/astral-sh/uv:0.4.30 /uv /uvx /bin/
-WORKDIR /app
+
 RUN --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --frozen --group remote --no-install-project
+    uv sync 
+
 COPY . .
 
 EXPOSE 8000
